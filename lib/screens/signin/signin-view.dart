@@ -1,6 +1,6 @@
-import 'package:eduwise/core/app_theme.dart';
+import 'package:eduwise/configs/core/app_theme.dart';
 import 'package:eduwise/provider/sign_in_provider.dart';
-import 'package:eduwise/ui/widgets/bottom_border_text_field.dart';
+import 'package:eduwise/configs/widgets/bottom_border_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
