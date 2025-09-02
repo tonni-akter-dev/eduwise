@@ -10,7 +10,9 @@ void main() {
   runApp(const MyApp());
 }
 
-/// Root widget with Provider for state management.
+// flutter build apk --build-name=1.0 --build-number=1
+
+//Root widget with Provider for state management.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -18,16 +20,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       // Register all app-wide providers here
-      providers: [
-        ChangeNotifierProvider(create: (_) => SignInProvider()),
-      ],
+      providers: [ChangeNotifierProvider(create: (_) => SignInProvider())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Eduwise',
         theme: AppTheme.light, // Centralized theme
-
         // 👇 Added Routing system
-        initialRoute: RoutesName.signInScreen,
+        initialRoute: RoutesName.termsAndConditionsScreen,
         onGenerateRoute: Routes.generateRoute,
       ),
     );

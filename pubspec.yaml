@@ -1,6 +1,6 @@
 name: eduwise
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -22,7 +22,6 @@ dependencies:
   google_sign_in: ^7.1.1
   flutter_secure_storage: ^9.0.0
 
-
   # 📦 Local Storage & Database
   hive: ^2.2.3
   hive_flutter: ^1.1.0
@@ -34,7 +33,6 @@ dependencies:
   flutter_svg: ^2.0.9
   lottie: ^3.1.2
   flutter_rating_bar: ^4.0.1
-
 
   # 📍 Maps & Location
   google_maps_flutter: ^2.7.0
@@ -60,3 +58,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/logo/logo-red.png
+    - assets/images/icons/
+    - assets/images/home/hero/

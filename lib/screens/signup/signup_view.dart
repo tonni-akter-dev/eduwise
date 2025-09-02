@@ -18,6 +18,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _emailCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
 
+  // 👇 Added state to track selected role
+  String _selectedRole = "student"; // default is student
+
   @override
   void dispose() {
     _emailCtrl.dispose();
@@ -40,14 +43,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
 
     return Scaffold(
-      // ✅ background for modern design
-      backgroundColor: Colors.grey[100], // <-- updated
+      backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 40,
-          ), // <-- updated spacing
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,12 +67,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(height: 16),
 
                 const Text(
-                  'Sign Up to create your account',
+                  'Create an Account to get study tips and consultancy',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 14,
-                  ), // <-- softer black
+                  style: TextStyle(color: Colors.black87, fontSize: 14),
                 ),
                 const SizedBox(height: 8),
 
@@ -83,7 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w700,
-                    fontSize: 24, // <-- slightly larger for hierarchy
+                    fontSize: 24,
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -93,15 +89,86 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 // =========================
                 Card(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16), // <-- rounded card
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  elevation: 4, // <-- soft shadow
+                  elevation: 4,
                   child: Padding(
-                    padding: const EdgeInsets.all(20), // <-- internal padding
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // Name input
+                        // ✅ Role selection buttons (Student / Consultant)
+                        Row(
+                          children: [
+                            Expanded(
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _selectedRole = "student"; // 👈 update role
+                                  });
+                                },
+                                style: OutlinedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 14,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  side: BorderSide(
+                                    color: AppTheme.primary,
+                                    width: 1.5,
+                                  ),
+                                  backgroundColor: _selectedRole == "student"
+                                      ? AppTheme.primary
+                                      : Colors.white, // 👈 active color
+                                  foregroundColor: _selectedRole == "student"
+                                      ? Colors.white
+                                      : AppTheme.primary, // 👈 text color
+                                ),
+                                child: const Text(
+                                  'Student',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _selectedRole =
+                                        "consultant"; // 👈 update role
+                                  });
+                                },
+                                style: OutlinedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 14,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  side: BorderSide(
+                                    color: AppTheme.primary,
+                                    width: 1.5,
+                                  ),
+                                  backgroundColor: _selectedRole == "consultant"
+                                      ? AppTheme.primary
+                                      : Colors.white, // 👈 active color
+                                  foregroundColor: _selectedRole == "consultant"
+                                      ? Colors.white
+                                      : AppTheme.primary, // 👈 text color
+                                ),
+                                child: const Text(
+                                  'Consultant',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+
+                        // // Name Input
                         // BottomBorderTextField(
                         //   controller: TextEditingController(),
                         //   hintText: 'Enter Your Name',
@@ -109,8 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         //   onChanged: (_) {},
                         // ),
                         // const SizedBox(height: 20),
-
-                        // // Phone Number input
+                        // // Number Input
                         // BottomBorderTextField(
                         //   controller: TextEditingController(),
                         //   hintText: 'Enter Your Number',
@@ -142,7 +208,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               sp.obscurePassword
                                   ? Icons.visibility_off
                                   : Icons.visibility,
-                              color: Colors.grey[700], // <-- softer icon color
+                              color: Colors.grey[700],
                             ),
                           ),
                         ),
@@ -162,7 +228,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               sp.obscurePassword
                                   ? Icons.visibility_off
                                   : Icons.visibility,
-                              color: Colors.grey[700], // <-- softer icon color
+                              color: Colors.grey[700],
                             ),
                           ),
                         ),
@@ -176,12 +242,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               onChanged: context
                                   .read<SignInProvider>()
                                   .toggleRememberMe,
-                              activeColor: AppTheme.primary, // <-- theme color
+                              activeColor: AppTheme.primary,
                               checkColor: Colors.white,
                               side: const BorderSide(
                                 color: Colors.black54,
                                 width: 1,
-                              ), // <-- softer border
+                              ),
                               materialTapTargetSize:
                                   MaterialTapTargetSize.shrinkWrap,
                             ),
@@ -190,16 +256,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: Text.rich(
                                 TextSpan(
                                   text: 'I accept ',
-                                  style: TextStyle(
-                                    color: Colors.black54,
-                                  ), // <-- softer
+                                  style: TextStyle(color: Colors.black54),
                                   children: [
                                     TextSpan(
                                       text: 'Terms And Condition',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color: AppTheme
-                                            .primary, // <-- highlighted in theme color
+                                        color: AppTheme.primary,
                                       ),
                                     ),
                                   ],
@@ -225,14 +288,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                           style:
                               ElevatedButton.styleFrom(
-                                minimumSize: const Size(
-                                  double.infinity,
-                                  50,
-                                ), // <-- full width
+                                minimumSize: const Size(double.infinity, 50),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    12,
-                                  ), // <-- rounded button
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                                 elevation: 2,
                                 backgroundColor: AppTheme.primary,
@@ -277,6 +335,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                           child: const Text('Sign Up'),
                         ),
+
+                        const SizedBox(height: 20),
+
+                        // ✅ Social Signup Options
+                        const Divider(height: 32, thickness: 1),
+                        const Text(
+                          "Or continue with",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.black54, fontSize: 14),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // Google button
+                            IconButton(
+                              onPressed: () {},
+                              icon: Image.asset(
+                                "assets/images/icons/google.webp",
+                                height: 28,
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            // Apple button
+                            IconButton(
+                              onPressed: () {},
+                              icon: Image.asset(
+                                "assets/images/icons/apple.webp",
+                                height: 28,
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            // Facebook button
+                            IconButton(
+                              onPressed: () {},
+                              icon: Image.asset(
+                                "assets/images/icons/facebook.webp",
+                                height: 28,
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -291,9 +391,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     const Text(
                       "Already have an account? ",
-                      style: TextStyle(
-                        color: Colors.black87,
-                      ), // <-- softer text
+                      style: TextStyle(color: Colors.black87),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -302,7 +400,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       child: const Text(
                         'Sign In',
                         style: TextStyle(
-                          color: AppTheme.primary, // <-- theme highlight
+                          color: AppTheme.primary,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
